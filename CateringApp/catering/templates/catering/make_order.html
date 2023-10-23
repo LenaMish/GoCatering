@@ -1,0 +1,20 @@
+{% extends 'catering/base.html' %}
+
+{% block title %}Make order{% endblock %}
+
+{% block content %}
+
+<style>
+    .center-heading {
+        text-align: center;
+    }
+</style>
+
+<h2 class="center-heading">Make order  - {{ diet.name }}</h2>
+<form method="POST" action="{% url 'catering:order_preview' pk=diet.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary">Preview!</button>
+</form>
+
+{% endblock %}

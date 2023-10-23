@@ -1,0 +1,14 @@
+{% extends 'catering/base.html' %}
+
+{% block title %}Diet details{% endblock %}
+
+{% block content %}
+    <title>Diet details</title>
+
+    <h1>{{ diet.number }}</h1>
+    <p>Name: {{ diet.name }}</p>
+    <p>Description: {{ diet.description }}</p>
+    <p>Calories: {{ diet.calories }}kcal</p>
+    <p>Price per day: {{ diet.price_per_day }}zł</p>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.item-image {
+    width: 200px;
+}
+
+.item {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.order-spacing {
+    margin-bottom: 20px;
+}
+
+.center-heading {
+    text-align: center;
+}
+
+.order-item {
+    list-style: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.item-medium {
+    width: 33%;
+}
+
+.message{
+        padding: 1em;
+        color: white;
+        background: lightgreen;
+        width: 100%;
+    }

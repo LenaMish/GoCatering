@@ -1,0 +1,16 @@
+{% extends 'catering/base.html' %}
+
+{% block title %}Confirm order{% endblock %}
+
+{% block content %}
+
+<h2>Order confirming</h2>
+<p>Your order was confirmed successfully!</p>
+<p>Diet: {{ order.diet.name }}</p>
+<p>Data from: {{ order.order_date_from }}</p>
+<p>Data to: {{ order.order_date_to }}</p>
+<p>Delivery address: {{ order.address }}</p>
+<p>Final price: {{ order.total_price }}</p>
+<a href="{% url 'catering:orders' pk=order.id %}">Go to your orders</a>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'catering/base.html' %}
+
+{% block title %}Diets{% endblock %}
+
+{% block content %}
+<style>
+    .center-heading {
+        text-align: center;
+    }
+
+    .order-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+</style>
+
+<h1 class="center-heading">Diets</h1>
+
+<div class="grid">
+    {% for diet in diets %}
+    <div class="order-item">
+        <h2>{{ diet.number }}</h2>
+        <h2>{{ diet.name }}</h2>
+        <h2>Calories: {{ diet.calories }}kcal</h2>
+        <h2>Price per day: {{ diet.price_per_day }}zł</h2>
+        <img class="item-image" src="{{ diet.image }} " alt="diets">
+        <div class="grid-2">
+        <a href="{% url 'catering:diets_details' pk=diet.id %}" class="btn btn-primary m-2">View details</a>
+        <a href="{% url 'catering:make_order' pk=diet.id %}" class="btn btn-primary m-2">Order now!</a>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

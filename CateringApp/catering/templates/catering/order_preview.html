@@ -1,0 +1,30 @@
+{% extends 'catering/base.html' %}
+
+{% block title %}Order preview{% endblock %}
+
+{% block content %}
+
+<style>
+    .center-heading {
+        text-align: center;
+    }
+</style>
+
+<h2 class="center-heading">Order preview</h2>
+<p>Diet: {{ diet.name }}</p>
+<p>Date from: {{ date_from }}</p>
+<p>Date to: {{ date_to }}</p>
+<p>Delivery address: {{ address }}</p>
+<p>Final price: {{ total_price }}</p>
+
+<form method="POST" action="{% url 'catering:confirm_order' pk=diet.id %}">
+    {% csrf_token %}
+    <div hidden>
+          {{form}}
+    </div>
+
+    <button type="submit" class="btn btn-success">Order now!</button>
+</form>
+<!--<a href="url 'catering:confirm_order' pk=order.id ">Make order!</a>-->
+
+{% endblock %}
