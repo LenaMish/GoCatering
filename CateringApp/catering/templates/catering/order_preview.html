@@ -8,14 +8,44 @@
     .center-heading {
         text-align: center;
     }
+
+    .order-preview-name {
+        font-family: 'fantasy', serif;
+        font-size: 45px;
+        font-weight: bold;
+    }
+
+    .container {
+        background-color: #FFE4B5;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        }
+
+        h1 {
+            color: #000000;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        .diet-details {
+
+        font-family: 'Courier New', monospace;
+        font-size: 18px;
+        font-weight: bold;
+        }
 </style>
 
-<h2 class="center-heading">Order preview</h2>
-<p>Diet: {{ diet.name }}</p>
-<p>Date from: {{ date_from }}</p>
-<p>Date to: {{ date_to }}</p>
-<p>Delivery address: {{ address }}</p>
-<p>Final price: {{ total_price }}</p>
+<h2 class="center-heading order-preview-name">Order preview</h2>
+<div class="container">
+    <p>Diet: {{ diet.name }}</p>
+    <p>Date from: {{ date_from }}</p>
+    <p>Date to: {{ date_to }}</p>
+    <p>Delivery address: {{ address }}</p>
+    <p>Final price: {{ total_price }}zł</p>
 
 <form method="POST" action="{% url 'catering:confirm_order' pk=diet.id %}">
     {% csrf_token %}
@@ -23,8 +53,8 @@
           {{form}}
     </div>
 
-    <button type="submit" class="btn btn-success">Order now!</button>
+    <button class="btn btn-light ">Order now!</button>
 </form>
-<!--<a href="url 'catering:confirm_order' pk=order.id ">Make order!</a>-->
+</div>
 
 {% endblock %}

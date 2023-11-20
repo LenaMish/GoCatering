@@ -4,7 +4,7 @@ import pytz
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -105,19 +105,6 @@ class MakeOrderView(LoginRequiredMixin, FormView):
     form_class = OrderDietForm
     success_url = reverse_lazy('catering:order_preview')
 
-    # def form_valid(self, form):
-    #     diet_id = self.kwargs['diet_id']
-    #     diet = Diet.objects.get(pk=diet_id)
-    #
-    #     order = form.save(commit=False)
-    #     order.user_name = self.request.user
-    #     order.diet = diet
-    #     days = (order.order_date_to - order.order_date_from).days
-    #     order.total_price = diet.price_per_day * days
-    #     order.save()
-    #
-    #     return super().form_valid(form)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         diet_id = self.kwargs['pk']
@@ -133,6 +120,8 @@ class OrderPreviewView(LoginRequiredMixin, View):
         print(request.POST)
 
         form = OrderDietForm(request.POST)
+        context = {"form": form}
+
         if form.is_valid():
             diet = Diet.objects.get(id=pk)
             days = (form.cleaned_data["order_date_to"] - form.cleaned_data["order_date_from"]).days
@@ -146,16 +135,9 @@ class OrderPreviewView(LoginRequiredMixin, View):
                 "total_price": total_price,
                 "form": form
             }
+        else:
+            return redirect("catering:make_order", pk=pk)
         return render(request, self.template_name, context)
-
-    #
-    # def get_object(self):
-    #     order_id = self.request.session.get('order_diet_id')
-    #     try:
-    #         order = Order.objects.get(pk=order_id)
-    #         return order
-    #     except Order.DoesNotExist:
-    #         return None
 
 
 class OrderConfirmView(LoginRequiredMixin, View):
@@ -172,6 +154,15 @@ class OrderConfirmView(LoginRequiredMixin, View):
             form.save()
 
             return redirect("catering:orders")
+
+
+class DeleteOrderView(View):
+    def post(self, request, diet_id):
+        orders = Order.objects.filter(diet__id=diet_id)
+        if orders.exists():
+            orders.first().delete()
+
+        return redirect('catering:orders')
 
 
 @register.filter

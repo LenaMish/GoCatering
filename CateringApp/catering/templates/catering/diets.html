@@ -18,21 +18,45 @@
         justify-content: center;
         flex-direction: column;
     }
+
+    .diet-number {
+        font-family: 'American Typewriter', serif; /* Zmiana 'Nunito' na dowolną inną dostępną czcionkę */
+        font-size: 35px; /* Dostosuj rozmiar czcionki do swoich preferencji */
+        font-weight: bold;
+    }
+    .diets,
+    .diet-name {
+        font-family: 'American Typewriter', serif; /* Zmiana 'Nunito' na dowolną inną dostępną czcionkę */
+        font-size: 45px; /* Dostosuj rozmiar czcionki do swoich preferencji */
+        font-weight: bold;
+    }
+
+    .diet-calories,
+    .diet-price {
+        font-family: 'Courier New', monospace; /* Zmiana 'Nunito' na dowolną inną dostępną czcionkę */
+        font-size: 18px; /* Dostosuj rozmiar czcionki do swoich preferencji */
+        font-weight: bold;
+    }
+    .center-button {
+        text-align: center;
+    }
 </style>
 
-<h1 class="center-heading">Diets</h1>
+<h1 class="center-heading diets">Diets</h1>
 
 <div class="grid">
     {% for diet in diets %}
     <div class="order-item">
-        <h2>{{ diet.number }}</h2>
-        <h2>{{ diet.name }}</h2>
-        <h2>Calories: {{ diet.calories }}kcal</h2>
-        <h2>Price per day: {{ diet.price_per_day }}zł</h2>
+        <h2 class="diet-number">{{ diet.number }}</h2>
+        <h2 class="diet-name">{{ diet.name }}</h2>
+        <h2 class="diet-calories">Calories: {{ diet.calories }}kcal</h2>
+        <h2 class="diet-price">Price per day: {{ diet.price_per_day }}zł</h2>
         <img class="item-image" src="{{ diet.image }} " alt="diets">
         <div class="grid-2">
-        <a href="{% url 'catering:diets_details' pk=diet.id %}" class="btn btn-primary m-2">View details</a>
-        <a href="{% url 'catering:make_order' pk=diet.id %}" class="btn btn-primary m-2">Order now!</a>
+            <a href="{% url 'catering:diets_details' pk=diet.id %}" class="btn btn-light m-2">View details</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'catering:make_order' pk=diet.id %}" class="btn btn-light m-2">Order now!</a>
+            {% endif %}
         </div>
     </div>
 

@@ -3,12 +3,35 @@
 {% block title %}Diet details{% endblock %}
 
 {% block content %}
-    <title>Diet details</title>
+<style>
+    .container {
+        background-color: #FFE4B5;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        }
 
-    <h1>{{ diet.number }}</h1>
-    <p>Name: {{ diet.name }}</p>
-    <p>Description: {{ diet.description }}</p>
-    <p>Calories: {{ diet.calories }}kcal</p>
-    <p>Price per day: {{ diet.price_per_day }}zł</p>
+        h1 {
+            color: #000000;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        .diet-details {
+
+        font-family: 'Courier New', monospace;
+        font-size: 18px;
+        font-weight: bold;
+        }
+</style>
+    <div class="container diet-details">
+        <h1>{{ diet.number }} - {{ diet.name }}</h1>
+        <p><strong>Description:</strong> {{ diet.description }}</p>
+        <p><strong>Calories:</strong> {{ diet.calories }}kcal</p>
+        <p><strong>Price per day:</strong> {{ diet.price_per_day }}zł</p>
+    </div>
 
 {% endblock %}

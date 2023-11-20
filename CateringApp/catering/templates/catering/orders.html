@@ -10,9 +10,26 @@
     }
 
     .order-item {
+        position: relative;
         border: 1px solid #ccc;
         padding: 10px;
         margin: 10px 0;
+    }
+
+    .remove-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #FFE4B5;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .order-spacing {
+        margin-bottom: 10px;
     }
 </style>
 
@@ -22,12 +39,17 @@
     {% for order in orders %}
     <li class="order-item item-medium">
         <div class="order-spacing"></div>
-        <div>Diet number: {{order.diet.number}}</div>
-        <div>Diet name: {{order.diet.name}}</div>
-        <div>Date from: {{order.order_date_from}}</div>
-        <div>Date to: {{order.order_date_to}}</div>
-        <div>Total price: {{order.total_price}}zł</div>
-        <img class="item-image" src="{{ order.diet.image }} " alt="diets">
+        <div>Diet number: {{ order.diet.number }}</div>
+        <div>Diet name: {{ order.diet.name }}</div>
+        <div>Date from: {{ order.order_date_from }}</div>
+        <div>Date to: {{ order.order_date_to }}</div>
+        <div>Total price: {{ order.total_price }}zł</div>
+        <img class="item-image" src="{{ order.diet.image }}" alt="diets">
+        <form method="post" action="{% url 'catering:delete_order' diet_id=order.diet.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button class="remove-button" type="submit">&#10060;</button>
+        </form>
+        </div>
     </li>
     {% endfor %}
 </ul>

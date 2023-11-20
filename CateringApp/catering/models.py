@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-from decimal import Decimal
-import math
+from django.core.exceptions import ValidationError
+from datetime import datetime
 
 
 class Diet(models.Model):
@@ -23,6 +23,13 @@ class Order(models.Model):
     order_date_to = models.DateField()
     address = models.CharField(max_length=30)
     total_price = models.FloatField(default=0.0)
+
+    def clean(self):
+        if self.order_date_from < datetime.now().date():
+            raise ValidationError("Order date must be today or in the future.")
+
+        if self.order_date_from > self.order_date_to:
+            raise ValidationError("Order end date must be equal to or after the start date.")
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         days = (self.order_date_to - self.order_date_from).days

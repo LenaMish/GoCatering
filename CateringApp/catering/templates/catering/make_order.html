@@ -8,13 +8,31 @@
     .center-heading {
         text-align: center;
     }
+
+    .make-order-name {
+        font-family: 'fantasy', serif;
+        font-size: 45px;
+        font-weight: bold;
+    }
+
+        .container {
+        background-color: #FFE4B5;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        }
+
 </style>
 
-<h2 class="center-heading">Make order  - {{ diet.name }}</h2>
-<form method="POST" action="{% url 'catering:order_preview' pk=diet.id %}">
+<h2 class="center-heading make-order-name">Make order  - {{ diet.name }}</h2>
+<div class="container">
+    <form method="POST" action="{% url 'catering:order_preview' pk=diet.id %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-primary">Preview!</button>
+    <button class="btn btn-light">Preview!</button>
 </form>
+</div>
+
 
 {% endblock %}

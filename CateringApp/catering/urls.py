@@ -14,5 +14,6 @@ urlpatterns = [
     path('make_order/<int:pk>', views.MakeOrderView.as_view(), name='make_order'),
     path('order_preview/<int:pk>', views.OrderPreviewView.as_view(), name='order_preview'),
     path('confirm_order/<int:pk>', views.OrderConfirmView.as_view(), name='confirm_order'),
+    path('delete_order/<int:diet_id>', views.DeleteOrderView.as_view(), name='delete_order'),
     path("activate/<code>", views.ActivateAccountView.as_view(), name="activate"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -45,3 +45,17 @@
         background: lightgreen;
         width: 100%;
     }
+
+body {
+    background-color: #f5f5dc;
+}
+
+
+.container-fluid {
+    background-color: beige;
+}
+
+.btn {
+    background-color: black;
+    color: white;
+}
